@@ -27,7 +27,7 @@ class TaskRead(TaskBase):
     id: str
     status: TaskStatus
     time_stamp: datetime
-    segmentation: List[List[int]]
+    #segmentation: List[List[int]]
 
     class Config:
         orm_mode = True
