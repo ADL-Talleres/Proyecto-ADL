@@ -34,7 +34,8 @@ app.include_router(task.router)
 app.include_router(file.router)
 
 app.mount("/uploads", StaticFiles(directory="./uploads"), name="uploads")
-#app.mount("/uploads_reason", StaticFiles(directory="./uploads_reason"), name="uploads_reason")
+app.mount("/uploads_reason", StaticFiles(directory="./uploads_reason"), name="uploads_reason")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

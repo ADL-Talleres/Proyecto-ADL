@@ -58,7 +58,7 @@ const PredictionComponent = () => {
 
             // Now send the required data to another endpoint
             const taskResponse = await fetch(
-                `https://back-406206621453.us-central1.run.app:8000/tasks/`,
+                `https://back-406206621453.us-central1.run.app/tasks/`,
                 {
                     method: "POST",
                     headers: {
