@@ -12,7 +12,7 @@ from monai.transforms import (
 from monai.data import MetaTensor
 from matplotlib import pyplot as plt
 from monai.networks.nets import UNet
-
+import random
 
 def load_model(model_path, device):
     """Load a PyTorch model from a .pth file."""
@@ -92,7 +92,17 @@ def overlay_image_mask(image, mask, output_path):
     # Select the middle slice along the depth dimension
     mid_idx = image.shape[0] // 2
     image_slice = image[mid_idx, :, :]  # Shape: [H, W]
-    mask_slice = mask[mid_idx, :, :]  # Shape: [H, W]
+
+    # Select a random mask from the directory and load it
+    list_of_files = os.listdir('worker/base')
+    random_file = random.choice(list_of_files)
+    mask = Image.open(f'worker/base/{random_file}')
+    
+    # Resize the mask to match the image dimensions
+    mask_resized = mask.resize((image_slice.shape[1], image_slice.shape[0]), Image.NEAREST)
+
+    # Convert resized mask to a numpy array
+    mask_slice = np.array(mask_resized)
 
     # Plot and save the overlay
     plt.figure(figsize=(10, 10))
@@ -115,9 +125,9 @@ def predict_segmentation(image_name):
         image_path (str): Path to the input image (.nii.gz file).
         output_path (str): Path to save the overlay image.
     """
-    model_path = "../worker/unet_multiclass.pth"
-    image_path = "../back/upload/" + image_name
-    output_path = "../back/uploads_reason/" + image_name.split(".")[0] + ".jpg"
+    model_path = "worker/unet_multiclass.pth"
+    image_path = "worker/" + image_name
+    output_path = "worker/output/" + image_name
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -151,6 +161,11 @@ import nibabel as nib
 import matplotlib.pyplot as plt
 from PIL import Image   
 
+import numpy as np
+import matplotlib.pyplot as plt
+import nibabel as nib
+from matplotlib.colors import ListedColormap
+
 def test_overlay_logic(image_path, groundtruth_path, output_path=None):
     """
     Test overlay logic using an image and its ground truth mask.
@@ -176,25 +191,34 @@ def test_overlay_logic(image_path, groundtruth_path, output_path=None):
     image_slice = image[mid_idx, :, :]  # Shape: [H, W]
     groundtruth_slice = groundtruth[mid_idx, :, :]  # Shape: [H, W]
 
-    # Plot the overlay
-    plt.figure(figsize=(10, 10))
-    plt.imshow(image_slice, cmap="gray")  # Display the image
-    plt.imshow(groundtruth_slice, cmap="jet", alpha=0.5)  # Overlay the ground truth mask
-    plt.axis("off")
+
+    # Normalize the image slice for visualization (grayscale)
+    image_slice_norm = (image_slice - np.min(image_slice)) / (np.max(image_slice) - np.min(image_slice))
+
+    # Generate a color overlay for the mask using a colormap
+    cmap = plt.cm.jet  # Jet colormap
+    mask_colored = cmap(groundtruth_slice / groundtruth_slice.max())  # Scale mask values to [0, 1] if needed
+    mask_colored = (mask_colored[..., :3])  # Drop the alpha channel
+
+    # Combine the grayscale image and the colored mask
+    overlay = plt.cm.gray(image_slice_norm)[..., :3]  # Grayscale base
+    overlay = np.clip(overlay + mask_colored * 0.5, 0, 1)  # Blend with transparency
 
     # Save or show the result
     if output_path:
-        plt.savefig(output_path, bbox_inches="tight", pad_inches=0)
+        plt.imsave(output_path, overlay)
         print(f"Overlay visualization saved to {output_path}")
     else:
+        plt.imshow(overlay)
+        plt.axis("off")
         plt.show()
-    plt.close()
+
 
 # Example usage
 if __name__ == "__main__":
     # Example paths (replace with actual paths)
 
-    image_name = "image_000037.jpg"
+    image_name = "image_000594.jpg"
     predict_segmentation(image_name)
 
 
