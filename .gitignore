@@ -2,6 +2,7 @@ env/
 .venv/
 data/
 filtered_data/
+back/myenv
 front/kidneySegNet/node_modules
 
 .python-version
