@@ -1,7 +1,6 @@
 import uuid
 from fastapi import APIRouter, Depends, File, UploadFile
 from fastapi.security import HTTPAuthorizationCredentials
-from fastapi_jwt_auth import AuthJWT
 from sqlalchemy.orm import Session
 import sys
 import os
