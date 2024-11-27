@@ -94,7 +94,7 @@ def overlay_image_mask(image, mask, output_path):
     image_slice = image[mid_idx, :, :]  # Shape: [H, W]
 
     # Select a random mask from the directory and load it
-    list_of_files = os.listdir('worker/base')
+    list_of_files = os.listdir('../worker/base')
     random_file = random.choice(list_of_files)
     mask = Image.open(f'worker/base/{random_file}')
     
