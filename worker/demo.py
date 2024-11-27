@@ -95,7 +95,7 @@ def overlay_image_mask(image, mask, output_path):
 
 
 
-def predict_segmentation(model_path, image_path, output_path):
+def predict_segmentation(image_name):
     """
     Predict segmentation for a given image using a specified model,
     and save the overlay image to the output path.
@@ -105,6 +105,9 @@ def predict_segmentation(model_path, image_path, output_path):
         image_path (str): Path to the input image (.nii.gz file).
         output_path (str): Path to save the overlay image.
     """
+    model_path = "../worker/unet_multiclass.pth"
+    image_path = "../back/upload/" + image_name
+    output_path = "../back/uploads_reason/" + image_name.split(".")[0] + ".jpg"
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -179,10 +182,8 @@ def test_overlay_logic(image_path, groundtruth_path, output_path=None):
 # Example usage
 if __name__ == "__main__":
     # Example paths (replace with actual paths)
-    model_path = "results/unet_multiclass.pth"
-    image_path = "filtered_data/case_00010/filtered_imaging.nii.gz"
-    output_path = "output/overlay.png"
 
-    predict_segmentation(model_path, image_path, output_path)
+    image_name = "image_000001.nii.gz"
+    predict_segmentation(image_name)
 
 
