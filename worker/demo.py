@@ -116,7 +116,7 @@ def predict_segmentation(image_name):
         output_path (str): Path to save the overlay image.
     """
     model_path = "../worker/unet_multiclass.pth"
-    image_path = "../back/upload/" + image_name
+    image_path = "../back/uploads/" + image_name
     output_path = "../back/uploads_reason/" + image_name.split(".")[0] + ".jpg"
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
