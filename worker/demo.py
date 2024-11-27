@@ -33,31 +33,41 @@ def load_model(model_path, device):
 
 def preprocess_image(image_path, transform):
     """
-    Preprocess a NIfTI image using the specified MONAI transforms.
+    Preprocess a JPG image using the specified MONAI transforms.
 
     Args:
-        image_path (str): Path to the NIfTI image.
+        image_path (str): Path to the JPG image.
         transform (Compose): MONAI transform pipeline.
 
     Returns:
         MetaTensor: Preprocessed image.
     """
-    # Load the NIfTI image
-    img = nib.load(image_path)
-    img_data = img.get_fdata()
-
-    print(f"Loaded image with shape: {img_data.shape}")
-
-    # Convert to MetaTensor (add channel dimension)
-    img_meta = MetaTensor(img_data[None, ...])  # Add channel dimension -> shape (1, D, H, W)
-
-    # Apply the transform
     try:
+        # Load the JPG image
+        img = Image.open(image_path).convert("L")  # Convert to grayscale if needed
+        img_data = np.array(img)
+        
+        # Create a 3D array with 30 identical slices
+        img_3d = np.tile(img_data, (30, 1, 1))  # Shape -> (30, H, W)
+
+        # Save as a NIfTI image (if needed for intermediate use)
+        affine = np.eye(4)  # Identity affine matrix
+        nifti_img = nib.Nifti1Image(img_3d, affine)
+        nib.save(nifti_img, "output_image.nii.gz")  # Optional: Save for debugging
+        
+        print(f"Generated NIfTI with shape: {img_3d.shape}")
+
+        # Convert to MetaTensor (add channel dimension)
+        img_meta = MetaTensor(img_3d[None, ...])  # Add channel dimension -> shape (1, 30, H, W)
+
+        # Apply the transform
         transformed = transform({"image": img_meta})
         print(f"Transformed shape: {transformed['image'].shape}")
+        
         return transformed["image"]
+
     except Exception as e:
-        print(f"Error during transform: {e}")
+        print(f"Error during preprocessing: {e}")
         raise
 
 
@@ -139,6 +149,7 @@ def predict_segmentation(image_name):
 import numpy as np
 import nibabel as nib
 import matplotlib.pyplot as plt
+from PIL import Image   
 
 def test_overlay_logic(image_path, groundtruth_path, output_path=None):
     """
@@ -183,7 +194,7 @@ def test_overlay_logic(image_path, groundtruth_path, output_path=None):
 if __name__ == "__main__":
     # Example paths (replace with actual paths)
 
-    image_name = "image_000001.nii.gz"
+    image_name = "image_000037.jpg"
     predict_segmentation(image_name)
 
 
