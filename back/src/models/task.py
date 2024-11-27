@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Float, ForeignKey, String, Integer, DateTime, Enum, Boolean, List
+from sqlalchemy import Column, Float, ForeignKey, String, Integer, DateTime, Enum, Boolean
 from sqlalchemy.orm import relationship
 import enum
 import sys
@@ -16,7 +16,7 @@ class Task(Base):
     name = Column(String)
     status = Column(Enum(TaskStatus), default=TaskStatus.UPLOADED)
     time_stamp = Column(DateTime)
-    segmentation = Column(List)
+    #segmentation = Column(List)
     input_path = Column(String)
 
     user_email = Column(String, ForeignKey("users.email"))

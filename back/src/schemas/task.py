@@ -27,7 +27,7 @@ class TaskRead(TaskBase):
     id: str
     status: TaskStatus
     time_stamp: datetime
-    segmentation: List[List[int]]
+    #segmentation: List[List[int]]
 
     class Config:
         orm_mode = True
@@ -39,7 +39,7 @@ class TaskRead(TaskBase):
                 "id": "4f21a77d-b8fa-47bb-8df6-b772a635bc19",
                 "status": "UPLOADED",
                 "time_stamp": "2021-07-07T00:00:00",
-                "segmentation": [[0,1,1,0,0],[0,1,1,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],
+                #"segmentation": [[0,1,1,0,0],[0,1,1,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],
                 
             }
         }

@@ -38,7 +38,7 @@ def create_task(db: Session, task: TaskCreate) -> TaskRead:
         name = task.name,
         time_stamp = datetime.now(),
         user_email = task.user_email,
-        segmentation = kidney_tumor_segmentation,
+        #segmentation = kidney_tumor_segmentation,
         input_path = task.input_path
     )
 
