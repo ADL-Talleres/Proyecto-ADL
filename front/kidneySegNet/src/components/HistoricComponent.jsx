@@ -25,7 +25,7 @@ const YourImages = () => {
 
             try {
                 const response = await fetch(
-                    `https://back-zu3yqmmklq-uc.a.run.app/tasks?email=${email}`,
+                    `https://back-406206621453.us-central1.run.app/tasks?email=${email}`,
                     {
                         method: "GET",
                         headers: {
@@ -100,7 +100,7 @@ const YourImages = () => {
                                             sx={{ color: "text.secondary" }}
                                         >
                                             <img
-                                                src={`https://back-zu3yqmmklq-uc.a.run.app/uploads/${task.input_path}`}
+                                                src={`https://back-406206621453.us-central1.run.app/uploads/${task.input_path}`}
                                                 alt={task.name}
                                                 style={{
                                                     width: "100px",
@@ -112,7 +112,7 @@ const YourImages = () => {
                                             sx={{ color: "text.secondary" }}
                                         >
                                             <img
-                                                src={`https://back-zu3yqmmklq-uc.a.run.app/uploads_reason/${task.input_path}`}
+                                                src={`https://back-406206621453.us-central1.run.app/uploads_reason/${task.input_path}`}
                                                 alt={task.name}
                                                 style={{
                                                     width: "100px",

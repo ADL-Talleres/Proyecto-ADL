@@ -125,9 +125,9 @@ def predict_segmentation(image_name):
         image_path (str): Path to the input image (.nii.gz file).
         output_path (str): Path to save the overlay image.
     """
-    model_path = "worker/unet_multiclass.pth"
-    image_path = "worker/" + image_name
-    output_path = "worker/output/" + image_name
+    model_path = "../worker/unet_multiclass.pth"
+    image_path = "../back/uploads/" + image_name
+    output_path = "../back/uploads_reason/" + image_name
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
