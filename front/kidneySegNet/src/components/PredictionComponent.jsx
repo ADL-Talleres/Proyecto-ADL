@@ -78,8 +78,8 @@ const PredictionComponent = () => {
             }
 
             const taskData = await taskResponse.json();
-            console.log(taskData.prediction);
-            setPrediction(taskData.prediction);
+            //console.log(taskData.prediction);
+            setPrediction(taskData.input_path);
         } catch (error) {
             alert(error.message);
         } finally {
@@ -220,7 +220,7 @@ const PredictionComponent = () => {
                                 </Typography>
                                 <Box sx={{ mt: 2 }}>
                                     <img
-                                        src={`https://back-406206621453.us-central1.run.app/uploads_reason/${prediction.input_path}`}
+                                        src={`https://back-406206621453.us-central1.run.app/uploads_reason/${prediction}`}
                                         alt="Segmentación"
                                         style={{
                                             width: "200px",

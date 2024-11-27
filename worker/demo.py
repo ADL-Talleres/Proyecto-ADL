@@ -117,7 +117,7 @@ def predict_segmentation(image_name):
     """
     model_path = "../worker/unet_multiclass.pth"
     image_path = "../back/uploads/" + image_name
-    output_path = "../back/uploads_reason/" + image_name.split(".")[0] + ".jpg"
+    output_path = "../back/uploads_reason/" + image_name
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
