@@ -13,10 +13,24 @@ import {
     TableHead,
     TableRow,
     Paper,
+    Dialog,
+    DialogContent,
+    Box
 } from "@mui/material";
 
 const YourImages = () => {
     const [tasks, setTasks] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [modalImage, setModalImage] = useState("");
+
+    const handleOpen = (imageSrc) => {
+        setModalImage(imageSrc);
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -96,28 +110,36 @@ const YourImages = () => {
                                                 task.time_stamp
                                             ).toLocaleString()}
                                         </TableCell>
-                                        <TableCell
-                                            sx={{ color: "text.secondary" }}
-                                        >
+                                        <TableCell sx={{ color: "text.secondary" }}>
                                             <img
                                                 src={`https://back-406206621453.us-central1.run.app/uploads/${task.input_path}`}
                                                 alt={task.name}
                                                 style={{
                                                     width: "100px",
                                                     height: "100px",
+                                                    cursor: "pointer",
                                                 }}
+                                                onClick={() =>
+                                                    handleOpen(
+                                                        `https://back-406206621453.us-central1.run.app/uploads/${task.input_path}`
+                                                    )
+                                                }
                                             />
                                         </TableCell>
-                                        <TableCell
-                                            sx={{ color: "text.secondary" }}
-                                        >
+                                        <TableCell sx={{ color: "text.secondary" }}>
                                             <img
                                                 src={`https://back-406206621453.us-central1.run.app/uploads_reason/${task.input_path}`}
                                                 alt={task.name}
                                                 style={{
                                                     width: "100px",
                                                     height: "100px",
+                                                    cursor: "pointer",
                                                 }}
+                                                onClick={() =>
+                                                    handleOpen(
+                                                        `https://back-406206621453.us-central1.run.app/uploads_reason/${task.input_path}`
+                                                    )
+                                                }
                                             />
                                         </TableCell>
                                     </TableRow>
@@ -127,6 +149,21 @@ const YourImages = () => {
                     </TableContainer>
                 </Container>
             </Grid>
+            <Dialog open={open} onClose={handleClose} maxWidth="lg">
+                <DialogContent>
+                    <Box
+                        component="img"
+                        src={modalImage}
+                        alt="Expanded view"
+                        sx={{
+                            maxWidth: "500px",
+                            maxHeight: "500px",
+                            display: "block",
+                            margin: "0 auto",
+                        }}
+                    />
+                </DialogContent>
+            </Dialog>
         </ThemeProvider>
     );
 };
