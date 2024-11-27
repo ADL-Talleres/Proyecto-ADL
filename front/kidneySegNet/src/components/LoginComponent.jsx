@@ -50,7 +50,7 @@ export default function SignInSide() {
 
         try {
             const response = await fetch(
-                `https://back-zu3yqmmklq-uc.a.run.app/users/login`,
+                `https://back-406206621453.us-central1.run.app/users/login`,
                 {
                     method: "POST",
                     headers: {

@@ -40,7 +40,7 @@ const PredictionComponent = () => {
         try {
             // Upload file using Fetch API
             const uploadResponse = await fetch(
-                "https://back-zu3yqmmklq-uc.a.run.app/files/uploadfile",
+                "https://back-406206621453.us-central1.run.app/files/uploadfile",
                 {
                     method: "POST",
                     headers: {
@@ -58,7 +58,7 @@ const PredictionComponent = () => {
 
             // Now send the required data to another endpoint
             const taskResponse = await fetch(
-                `https://back-zu3yqmmklq-uc.a.run.app/tasks/`,
+                `https://back-406206621453.us-central1.run.app:8000/tasks/`,
                 {
                     method: "POST",
                     headers: {
@@ -212,12 +212,15 @@ const PredictionComponent = () => {
                         </Button>
                         {prediction && (
                             <Box sx={{ mt: 4, textAlign: "center" }}>
-                                <Typography variant="h5" sx={{ color: "text.secondary" }}>
+                                <Typography
+                                    variant="h5"
+                                    sx={{ color: "text.secondary" }}
+                                >
                                     Resultado:
                                 </Typography>
                                 <Box sx={{ mt: 2 }}>
                                     <img
-                                        src={`https://back-zu3yqmmklq-uc.a.run.app/uploads_reason/${prediction.input_path}`}
+                                        src={`https://back-406206621453.us-central1.run.app/uploads_reason/${prediction.input_path}`}
                                         alt="Segmentación"
                                         style={{
                                             width: "200px",
@@ -234,8 +237,14 @@ const PredictionComponent = () => {
                                             color: "text.secondary",
                                         }}
                                     >
-                                        <span style={{ color: "red" }}>Color Rojo</span>: Tumor |{" "}
-                                        <span style={{ color: "blue" }}>Color Azul</span>: Riñón
+                                        <span style={{ color: "red" }}>
+                                            Color Rojo
+                                        </span>
+                                        : Tumor |{" "}
+                                        <span style={{ color: "blue" }}>
+                                            Color Azul
+                                        </span>
+                                        : Riñón
                                     </Typography>
                                 </Box>
                             </Box>

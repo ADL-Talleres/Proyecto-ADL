@@ -49,7 +49,7 @@ export default function SignUp() {
 
         try {
             const preresponse = await fetch(
-                `https://back-zu3yqmmklq-uc.a.run.app/users/`,
+                `https://back-406206621453.us-central1.run.app/users/`,
                 {
                     method: "POST",
                     headers: {
@@ -67,7 +67,7 @@ export default function SignUp() {
                 throw new Error("Network response was not ok");
             }
             const response = await fetch(
-                `https://back-zu3yqmmklq-uc.a.run.app/users/login`,
+                `https://back-406206621453.us-central1.run.app/users/login`,
                 {
                     method: "POST",
                     headers: {
