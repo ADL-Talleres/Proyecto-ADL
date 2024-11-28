@@ -30,3 +30,4 @@ packaging
 monai
 nibabel
 matplotlib
+segmentation-models-pytorch

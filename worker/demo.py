@@ -86,9 +86,9 @@ def predict_segmentation(image_name):
     Args:
         image_name (str): Name of the input image file (JPG/PNG).
     """
-    model_path = "worker/best_UNet.pth"
-    image_path = "worker/" + image_name
-    output_path = "worker/output/" + image_name
+    model_path = "../worker/best_UNet.pth"
+    image_path = "../back/uploads/" + image_name
+    output_path = "../back/uploads_reason/" + image_name
 
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
